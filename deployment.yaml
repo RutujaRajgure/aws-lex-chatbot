@@ -1,0 +1,26 @@
+
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: lex-chatbot
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: lex-chatbot
+
+  template:
+    metadata:
+      labels:
+        app: lex-chatbot
+
+    spec:
+      containers:
+      - name: lex-chatbot
+        image: rutujarajgure/aws-lex-chatbot:v1
+
+        ports:
+        - containerPort: 80
