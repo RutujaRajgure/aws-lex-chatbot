@@ -13,3 +13,9 @@ spec:
  ports:
  - port: 80
    targetPort: 80
+Deploy:
+kubectl apply -f deployment.yaml
+
+kubectl apply -f service.yaml
+Check:
+kubectl get svc
