@@ -1,10 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-   <title>AWS Lex Chatbot Project</title>
+   <title>Cloud Assistant Bot</title>
+   <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1190.0.min.js"></script>
 </head>
 <body>
-   <h1>Welcome to AWS Lex Chatbot Project</h1>
-   <p>DevOps Project by Rutuja Rajgure</p>
+
+<h1>Cloud Assistant Bot</h1>
+
+<input type="text" id="message" placeholder="Ask something">
+<button onclick="sendMessage()">Send</button>
+
+<h3>Response:</h3>
+<div id="response"></div>
+
+<script>
+
+AWS.config.region = "ap-southeast-1";
+
+AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+   IdentityPoolId: "ap-southeast-1:a4a71de4-2113-4d69-834b-0fbbd58571de"
+});
+
+var lexruntimev2 = new AWS.LexRuntimeV2();
+
+async function sendMessage() {
+
+   let msg = document.getElementById("message").value;
+
+   const params = {
+       botId: "8IRVKLXZGR",
+       botAliasId: "QDHCJ2VKVZ",
+       localeId: "en_US",
+       sessionId: "user-session",
+       text: msg
+   };
+
+   try {
+
+       const data = await lexruntimev2.recognizeText(params).promise();
+
+       document.getElementById("response").innerHTML =
+           data.messages[0].content;
+
+   } catch(err) {
+
+       console.error(err);
+
+       document.getElementById("response").innerHTML =
+           "Error connecting to Lex";
+
+   }
+}
+
+</script>
+
 </body>
 </html>
