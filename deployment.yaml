@@ -20,7 +20,7 @@ spec:
    spec:
      containers:
      - name: lex-chatbot
-       image: YOUR_DOCKERHUB/aws-lex-chatbot:v1
+       image: rutujarajgure/aws-lex-chatbot:v1
 
        ports:
        - containerPort: 80
